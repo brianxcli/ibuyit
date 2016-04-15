@@ -2,31 +2,36 @@
     <span class="layout-alerts-global">{{> inlineAlerts}}</span>
     <div class="page {{adminControlsClassname}}" id="reactionAppContainer">
         <nav class="reaction-navigation-header ibuyit-static-header admin-header">
-            <!-- begin layoutHeader -->
-          {{> Template.dynamic template=layoutHeader}}
-            <!-- end layoutHeader -->
+            <div class="header-wrapper container">
+                <!-- begin layoutHeader -->
+              {{> Template.dynamic template=layoutHeader}}
+                <!-- end layoutHeader -->
+            </div>
         </nav>
 
-        <div class="shop-body">
+        <div class="shop-body container">
             <nav class="reaction-cart-drawer">
               {{> cartDrawer}}
             </nav>
 
             <main role="main" id="main">
-                <!-- begin dashboardHeader -->
-              {{> Template.dynamic template=dashboardHeader}}
-                <!-- end dashboardHeader -->
+                <div class="shop-page">
+                    <!-- begin dashboardHeader -->
+                  {{> Template.dynamic template=dashboardHeader}}
+                    <!-- end dashboardHeader -->
 
-                <!-- begin template region -->
-              {{> Template.dynamic template=template}}
-                <!-- end template region -->
+                    <!-- begin template region -->
+                  {{> Template.dynamic template=template}}
+                    <!-- end template region -->
+                </div>
+
+                <footer class="reaction-navigation-footer footer-default ibuyit-footer">
+                    <!-- begin layoutFooter -->
+                  {{> Template.dynamic template=layoutFooter}}
+                    <!-- end layoutFooter -->
+                </footer>
             </main>
         </div>
-        <footer class="reaction-navigation-footer footer-default ibuyit-footer">
-            <!-- begin layoutFooter -->
-          {{> Template.dynamic template=layoutFooter}}
-            <!-- end layoutFooter -->
-        </footer>
     </div>
 
     <div class="admin-controls {{adminControlsClassname}}">
