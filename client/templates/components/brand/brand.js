@@ -4,5 +4,5 @@
 Template.IbuyitBrand.replaces("coreNavigationBrand");
 
 Template.coreNavigationBrand.helpers({
-  url: 'resources/logo.png'
+  url: '/resources/logo.png'
 });
