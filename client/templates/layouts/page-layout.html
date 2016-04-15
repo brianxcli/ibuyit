@@ -4,27 +4,33 @@
   {{else}}
       <div class="page">
           <nav class="reaction-navigation-header ibuyit-static-header">
-              <!-- begin layoutHeader -->
-            {{> Template.dynamic template=layoutHeader}}
-              <!-- end layoutHeader -->
+              <div class="header-wrapper container">
+                  <!-- begin layoutHeader -->
+                {{> Template.dynamic template=layoutHeader}}
+                  <!-- end layoutHeader -->
+              </div>
           </nav>
 
-          <div class="shop-body">
+          <div class="shop-body container">
               <nav class="reaction-cart-drawer">
                 {{>cartDrawer}}
               </nav>
 
               <main role="main" id="main">
-                  <span id="layout-alerts">{{> inlineAlerts}}</span>
-                {{#if hasPermission 'guest'}}
-                    <!-- begin template region -->
-                  {{> Template.dynamic template=template}}
-                    <!-- end template region -->
-                {{/if}}
+                  <div class="shop-page">
+                      <span id="layout-alerts">{{> inlineAlerts}}</span>
+                    {{#if hasPermission 'guest'}}
+                        <!-- begin template region -->
+                      {{> Template.dynamic template=template}}
+                        <!-- end template region -->
+                    {{/if}}
+                  </div>
+
+                  <footer class="reaction-navigation-footer footer-default ibuyit-footer">
+                    {{> Template.dynamic template=layoutFooter}}
+                  </footer>
               </main>
           </div>
-
-          <footer class="reaction-navigation-footer footer-default ibuyit-footer">{{> Template.dynamic template=layoutFooter}}</footer>
       </div>
   {{/if}}
 </template>
