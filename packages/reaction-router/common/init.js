@@ -160,7 +160,7 @@ ReactionRouter.initPackageRoutes = () => {
       let uniqRoutes = new Set(newRoutes);
       for (const route of uniqRoutes) {
         shop.newGroup = ReactionRouter.group({
-          prefix: "/" + prefix
+          prefix: ""
         });
         // todo: look for a cheap way to validate and prevent duplicate additions
         shop.newGroup.route(route.route, route.options);
