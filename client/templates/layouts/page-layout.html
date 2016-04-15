@@ -1,0 +1,30 @@
+<template name="IbuyitCoreLayout">
+  {{#if hasDashboardAccess}}
+    {{> coreAdminLayout}}
+  {{else}}
+      <div class="page">
+          <nav class="reaction-navigation-header ibuyit-static-header">
+              <!-- begin layoutHeader -->
+            {{> Template.dynamic template=layoutHeader}}
+              <!-- end layoutHeader -->
+          </nav>
+
+          <div class="shop-body">
+              <nav class="reaction-cart-drawer">
+                {{>cartDrawer}}
+              </nav>
+
+              <main role="main" id="main">
+                  <span id="layout-alerts">{{> inlineAlerts}}</span>
+                {{#if hasPermission 'guest'}}
+                    <!-- begin template region -->
+                  {{> Template.dynamic template=template}}
+                    <!-- end template region -->
+                {{/if}}
+              </main>
+          </div>
+
+          <footer class="reaction-navigation-footer footer-default ibuyit-footer">{{> Template.dynamic template=layoutFooter}}</footer>
+      </div>
+  {{/if}}
+</template>

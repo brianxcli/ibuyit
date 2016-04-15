@@ -1,0 +1,85 @@
+.ibuyit-container-fluid {
+  padding: 0;
+}
+
+.ibuyit-row {
+  margin: 0;
+}
+
+.ibuyit-navbar {
+  background-color: #222f3e !important;
+  height: 39px !important;
+  min-height: 39px !important;
+}
+
+.ibuyit-tag-nav {
+  height: 39px !important;
+}
+
+.ibuyit-navbar .accounts {
+  height: 39px !important;
+}
+
+.ibuyit-navbar .accounts #logged-in-display-name {
+  font-size: 13px;
+}
+
+.ibuyit-cart-icon {
+  height: 27px !important;
+  padding: 2px 3px 2px 3px;
+  margin: 6px 30px 6px 30px;
+  background-color: transparent !important;
+  border: 1px solid;
+  border-radius: 6px;
+}
+
+.ibuyit-cart-icon .fa-shopping-cart {
+  font-size: 1.5em !important;
+  padding-left: 7px;
+}
+
+.ibuyit-cart-icon .badge {
+  position:relative !important;
+  background-color: transparent !important;
+  height: 21px;
+  bottom: auto;
+  padding: 2px 6px 3px 5px !important;
+}
+
+.ibuyit-static-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 39px;
+}
+
+.admin-header {
+  padding-right: 65px;
+  z-index: 1000;
+}
+
+.shop-body {
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  padding-top: 39px;
+  padding-bottom: 39px;
+}
+
+.ibuyit-footer {
+  height: 39px;
+  margin-top: -39px;
+  padding: 0 0;
+  background-color: #222f3e !important;
+}
+
+.copy-right {
+  width: 100%;
+  height: 100%;
+  margin-top: 3px;
+  color: #f2f2f2;
+  text-align: center;
+}
