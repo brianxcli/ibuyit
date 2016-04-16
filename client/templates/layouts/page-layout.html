@@ -11,25 +11,29 @@
               </div>
           </nav>
 
-          <div class="shop-body container">
-              <nav class="reaction-cart-drawer">
-                {{>cartDrawer}}
-              </nav>
+          <div class="shop-body">
+              <div class="shop-content">
+                  <div class="container">
+                      <nav class="reaction-cart-drawer">
+                        {{>cartDrawer}}
+                      </nav>
 
-              <main role="main" id="main">
-                  <div class="shop-page">
-                      <span id="layout-alerts">{{> inlineAlerts}}</span>
-                    {{#if hasPermission 'guest'}}
-                        <!-- begin template region -->
-                      {{> Template.dynamic template=template}}
-                        <!-- end template region -->
-                    {{/if}}
+                      <main role="main" id="main">
+                          <div class="shop-page">
+                              <span id="layout-alerts">{{> inlineAlerts}}</span>
+                            {{#if hasPermission 'guest'}}
+                                <!-- begin template region -->
+                              {{> Template.dynamic template=template}}
+                                <!-- end template region -->
+                            {{/if}}
+                          </div>
+                      </main>
                   </div>
+              </div>
 
-                  <footer class="reaction-navigation-footer footer-default ibuyit-footer">
-                    {{> Template.dynamic template=layoutFooter}}
-                  </footer>
-              </main>
+              <footer class="reaction-navigation-footer footer-default ibuyit-footer">
+                {{> Template.dynamic template=layoutFooter}}
+              </footer>
           </div>
       </div>
   {{/if}}

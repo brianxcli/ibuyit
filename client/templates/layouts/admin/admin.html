@@ -1,7 +1,7 @@
 <template name="IbuyitAdminCoreLayout">
     <span class="layout-alerts-global">{{> inlineAlerts}}</span>
     <div class="page {{adminControlsClassname}}" id="reactionAppContainer">
-        <nav class="reaction-navigation-header ibuyit-static-header admin-header">
+        <nav class="reaction-navigation-header ibuyit-static-header">
             <div class="header-wrapper container">
                 <!-- begin layoutHeader -->
               {{> Template.dynamic template=layoutHeader}}
@@ -9,32 +9,34 @@
             </div>
         </nav>
 
-        <div class="shop-body container">
-            <nav class="reaction-cart-drawer">
-              {{> cartDrawer}}
-            </nav>
+        <div class="shop-body">
+            <div class="shop-content">
+                <div class="container">
+                    <nav class="reaction-cart-drawer">
+                      {{> cartDrawer}}
+                    </nav>
 
-            <main role="main" id="main">
-                <div class="shop-page">
-                    <!-- begin dashboardHeader -->
-                  {{> Template.dynamic template=dashboardHeader}}
-                    <!-- end dashboardHeader -->
+                    <main role="main" id="main">
+                        <!-- begin dashboardHeader -->
+                      {{> Template.dynamic template=dashboardHeader}}
+                        <!-- end dashboardHeader -->
 
-                    <!-- begin template region -->
-                  {{> Template.dynamic template=template}}
-                    <!-- end template region -->
+                        <!-- begin template region -->
+                      {{> Template.dynamic template=template}}
+                        <!-- end template region -->
+                    </main>
                 </div>
+            </div>
 
-                <footer class="reaction-navigation-footer footer-default ibuyit-footer">
-                    <!-- begin layoutFooter -->
-                  {{> Template.dynamic template=layoutFooter}}
-                    <!-- end layoutFooter -->
-                </footer>
-            </main>
+            <footer class="reaction-navigation-footer footer-default ibuyit-footer">
+                <!-- begin layoutFooter -->
+              {{> Template.dynamic template=layoutFooter}}
+                <!-- end layoutFooter -->
+            </footer>
         </div>
     </div>
 
-    <div class="admin-controls {{adminControlsClassname}}">
+    <div class="admin-controls {{adminControlsClassname}}" style="z-index: 2000;">
         <div class="admin-controls-detail">
             <div class="admin-controls-heading">
               {{> settingsHeader}}

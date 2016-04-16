@@ -1,3 +1,7 @@
+html,body {
+  min-height: 100%;
+}
+
 .ibuyit-container-fluid {
   padding: 0;
 }
@@ -48,26 +52,24 @@
 
 .ibuyit-static-header {
   background-color: #222f3e !important;
+  width: 100%;
+  height: 39px;
+  z-index: 1000;
+}
+
+.shop-body {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 39px;
-}
-
-.admin-header {
-  padding-right: 65px;
-}
-
-.shop-body {
   min-height: 100%;
-  height: 100%;
   padding-top: 39px;
+  overflow: auto;
 }
 
-.shop-page {
+.shop-content {
   width: 100%;
   min-height: 100%;
   padding-bottom: 39px;
