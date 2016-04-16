@@ -1,11 +1,16 @@
 
 <template name="IbuyitNavBar">
   <div class="rui navbar ibuyit-navbar">
-    <div class="showmenu">{{> button icon="bars" onClick=onMenuButtonClick}}</div>
     {{> coreNavigationBrand}}
-    <div class="menu">
-      {{> tagNav tagNavProps}}
-    </div>
+
+      <ul class="nav-wrapper">
+          <li class="ibuyit-nav-item">
+              <a href="/">HOME</a>
+          </li>
+          <li class="ibuyit-nav-item">
+              <a href="/about">ABOUT US</a>
+          </li>
+      </ul>
 
     <div class="accounts">{{> accounts tpl="loginDropdown"}}</div>
     <div class="cart">{{> cartIcon}}</div>
