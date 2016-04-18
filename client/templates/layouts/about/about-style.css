@@ -1,0 +1,43 @@
+.intro-body {
+  padding: 20px 20px 20px 30px;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.intro-title {
+  font-family: "Microsoft YaHei";
+  font-size: x-large;
+  text-transform: uppercase;
+  margin: 45px 0 25px 0;
+  color: #00b3ee;
+}
+
+.intro-subtitle {
+  font-size: large;
+  margin-bottom: 10px;
+}
+
+.intro-list > li,
+.no-numbering-list > li {
+  margin: 5px 0 5px 0;
+  font-size: medium;
+}
+
+.no-numbering-list > li {
+  list-style-type: none;
+}
+
+.tel {
+  color: #0000FF;
+}
+
+.twitter-mention-button {
+  width: 230px;
+  color: whitesmoke;
+  display: block;
+  line-height: 25px;
+  background-color: #00b3ee;
+  border-radius: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
