@@ -2,15 +2,15 @@
 <template name="IbuyitNavBar">
   <div class="rui navbar ibuyit-navbar">
     {{> coreNavigationBrand}}
-
-      <ul class="nav-wrapper">
-          <li class="ibuyit-nav-item">
-              <a href="/">HOME</a>
-          </li>
-          <li class="ibuyit-nav-item">
-              <a href="/about">ABOUT US</a>
-          </li>
-      </ul>
+    <ul class="nav-wrapper">
+        <li class="ibuyit-nav-item {{getFocused 'index'}}">
+            <a id="home">HOME</a>
+        </li>
+        <li class="ibuyit-nav-item {{getFocused 'about'}}">
+            <a id="about">ABOUT US</a>
+        </li>
+        {{getCurrentPath}}
+    </ul>
 
     <div class="accounts">{{> accounts tpl="loginDropdown"}}</div>
     <div class="cart">{{> cartIcon}}</div>
