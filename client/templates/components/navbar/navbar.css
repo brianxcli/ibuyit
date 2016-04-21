@@ -8,7 +8,7 @@
 .nav-wrapper > li {
   width: 120px;
   height: 39px;
-  float: left;
+  float: right;
 }
 
 .nav-wrapper > li > a {

@@ -1,6 +1,17 @@
 Meteor.startup(function () {
   if (Meteor.isClient) {
     Tracker.autorun(function () {
+      ReactionRouter.route("/", {
+        name: "index",
+        action: function () {
+          BlazeLayout.render("coreLayout", {
+            template: "IbuyitHome",
+            layoutHeader: "layoutHeader",
+            layoutFooter: "layoutFooter"
+          });
+        }
+      });
+
       ReactionRouter.route("/about", {
         name: "about",
         action: () => {

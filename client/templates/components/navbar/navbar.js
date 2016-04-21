@@ -8,7 +8,6 @@ Template.CoreNavigationBar.helpers({
     // FlowRouter.current() is not reactive, call
     // watchPathChange() to watch the changes in path
     ReactionRouter.watchPathChange();
-    console.log(ReactionRouter.current());
 
     let path = ReactionRouter.current().route.name;
     if (path === current) {

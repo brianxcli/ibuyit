@@ -99,12 +99,12 @@ ReactionRouter.initPackageRoutes = () => {
   //
   // index / home route
   //
-  shop.route("/", {
-    name: "index",
-    action: function () {
-      ReactionLayout();
-    }
-  });
+  // shop.route("/", {
+  //   name: "index",
+  //   action: function () {
+  //     ReactionLayout();
+  //   }
+  // });
 
   // get package registry route configurations
   for (let pkg of pkgs) {

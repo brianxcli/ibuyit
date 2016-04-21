@@ -1,0 +1,42 @@
+<template name="IbuyitHome">
+    <div class="home-block">
+        <div class="block-wrapper">
+            <div class="block-title">CATEGORIES</div>
+            <div class="category-wrapper">
+                <div class="ads-wrapper">
+                    <img class="home-adver" src="/resources/ads/ad_asus_pro_gaming_series_motherboard.png"/>
+                    <a class="ads-arrow ads-arrow-left"></a>
+                    <a class="ads-arrow ads-arrow-right"></a>
+                </div>
+                <div class="category-nav-wrapper" style="background-color: rgba(5,5,5,1);">
+                    <div class="category-nav-list">
+                        <div><a>CPU</a></div>
+                        <div><a>Motherboard</a></div>
+                        <div><a>Graphics Card</a></div>
+                        <div><a>Memory</a></div>
+                        <div><a>Storage</a></div>
+                        <div><a>Monitor</a></div>
+                        <div><a>Power Supply</a></div>
+                        <div><a>Case</a></div>
+                        <div><a>Fan & Cooling</a></div>
+                        <div><a>Accessory</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block-wrapper">
+            <div class="block-title">BRANDS</div>
+            <div class="block-divider"></div>
+            <div class="brands-wrapper">
+                <div class="brands-grid container-fluid">
+                    {{#each brand in brands}}
+                        <div class="brand-item-grid col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                            <img class="brand-item" src="{{brand.logo}}"/>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -3,13 +3,12 @@
   <div class="rui navbar ibuyit-navbar">
     {{> coreNavigationBrand}}
     <ul class="nav-wrapper">
-        <li class="ibuyit-nav-item {{getFocused 'index'}}">
-            <a id="home">HOME</a>
-        </li>
-        <li class="ibuyit-nav-item {{getFocused 'about'}}">
+        <li class="{{getFocused 'about'}}">
             <a id="about">ABOUT US</a>
         </li>
-        {{getCurrentPath}}
+        <li class="{{getFocused 'index'}}">
+            <a id="home">HOME</a>
+        </li>
     </ul>
 
     <div class="accounts">{{> accounts tpl="loginDropdown"}}</div>
