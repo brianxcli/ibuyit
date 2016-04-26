@@ -23,12 +23,12 @@ function uploadCsv(event) {
     reader.onload = () => {
       let result = IbuyitParse.parse(reader.result);
       console.log(result);
+      $('#form-import-csv button').removeAttr('disabled');
     }
 
     reader.readAsText(file);
   } else {
     $('#form-import-csv #result').text('Browser is not supported. Please change to another browser.');
+    $('#form-import-csv button').removeAttr('disabled');
   }
-
-  $('#form-import-csv button').attr('disabled','');
 }
