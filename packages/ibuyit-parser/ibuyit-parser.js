@@ -7,11 +7,5 @@
 if (!IbuyitParse) IbuyitParse = {};
 
 IbuyitParse.parse = (scv, options) => {
-  let res = Baby.parse(scv, options);
-  return res.data;
-};
-
-IbuyitParse.parseFiles = (files, options) => {
-  let res = Baby.parseFiles(files, options);
-  return res.data;
+  return Baby.parse(scv, options);
 };

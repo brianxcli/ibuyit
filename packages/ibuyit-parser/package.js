@@ -13,11 +13,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.3.1');
   api.use('ecmascript');
+  api.addFiles('babyparse.js');
   api.mainModule('ibuyit-parser.js');
-
-  Npm.depends({
-    babyparse: '0.4.5'
-  });
+  api.export("IbuyitParse");
 });
 
 Package.onTest(function(api) {

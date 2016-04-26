@@ -23,6 +23,10 @@ Template.CoreNavigationBar.events({
     ReactionRouter.go('/');
   },
 
+  'click #product'() {
+    ReactionRouter.go('/product');
+  },
+
   'click #about'() {
     ReactionRouter.go('/about');
   }
