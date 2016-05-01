@@ -1,0 +1,30 @@
+<template name="IbuyitProductImport">
+    <div class="container-fluid-sm">
+        <div class="panel panel-default">
+            <form id="form-import-csv" class="panel-body" role="form">
+                <div class="form-group">
+                    <label>Files</label>
+                    <input name="csvfiles" class="form-control" type="file">
+                </div>
+                <button type="submit" class="btn btn-info">Import</button>
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid-sm">
+        <div class="panel panel-default">
+            <div><span>You are going to import the following products:</span></div>
+            <form id="form-import-result" class="panel-body" role="form">
+                {{#let ret=productList}}
+                  {{#if ret.success}}
+                    {{#each product in ret.result.data}}
+                        <div><span>{{product}}</span></div>
+                    {{/each}}
+                  {{else}}
+                    <p><span>{{ret.errMsg}}</span></p>
+                  {{/if}}
+                {{/let}}
+                <button type="submit" class="btn btn-info">Confirm</button>
+            </form>
+        </div>
+    </div>
+</template>

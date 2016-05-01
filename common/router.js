@@ -34,6 +34,17 @@ Meteor.startup(function () {
         }
       });
 
+      ReactionRouter.route("/product/import", {
+        name: "product/import",
+        action: () => {
+          BlazeLayout.render("coreLayout", {
+            template: "IbuyitProductImport",
+            layoutHeader: "layoutHeader",
+            layoutFooter: "layoutFooter"
+          });
+        }
+      });
+
       // initialize client routing
       if (ReactionCore.Subscriptions.Packages.ready() && ReactionCore.Subscriptions.Shops.ready()) {
         ReactionRouter.initPackageRoutes();
