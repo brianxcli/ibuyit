@@ -3,8 +3,20 @@
         <div class="panel panel-default">
             <form id="form-import-csv" class="panel-body" role="form">
                 <div class="form-group">
+                    <div id="file-warning" class="warning text-warning bg-danger hide"></div>
                     <label>Files</label>
                     <input name="csvfiles" class="form-control" type="file">
+                </div>
+                <div class="form-group">
+                    <label>Provider</label>
+                    <div id="provider-warning" class="warning text-warning bg-danger hide"></div>
+                    <select name="provider" class="form-select">
+                        <option value="0"> - Please select a provider - </option>
+                        <option value="1">IM</option>
+                        <option value="2">Anyware</option>
+                        <option value="3">PB</option>
+                        <option value="4">Synnex</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-info">Import</button>
             </form>
@@ -12,18 +24,20 @@
     </div>
     <div class="container-fluid-sm">
         <div class="panel panel-default">
-            <div><span>You are going to import the following products:</span></div>
             <form id="form-import-result" class="panel-body" role="form">
-                {{#let ret=productList}}
-                  {{#if ret.success}}
-                    {{#each product in ret.result.data}}
-                        <div><span>{{product}}</span></div>
-                    {{/each}}
-                  {{else}}
-                    <p><span>{{ret.errMsg}}</span></p>
-                  {{/if}}
-                {{/let}}
-                <button type="submit" class="btn btn-info">Confirm</button>
+                <div class="form-group">
+                    <label>You are going to import the following products:</label>
+                    {{#let ret=productList}}
+                      {{#if ret.success}}
+                        {{#each product in ret.result.data}}
+                            <div><span>{{product}}</span></div>
+                        {{/each}}
+                      {{else}}
+                          <p><span>{{ret.errMsg}}</span></p>
+                      {{/if}}
+                    {{/let}}
+                    <button type="submit" class="btn btn-info">Confirm</button>
+                </div>
             </form>
         </div>
     </div>

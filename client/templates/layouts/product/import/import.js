@@ -8,8 +8,6 @@ Template.IbuyitProductImport.onCreated(function () {
   });
 });
 
-let self = Template.instance();
-
 Template.IbuyitProductImport.helpers({
   productList: () => {
     if (Meteor.isClient) {
@@ -22,19 +20,50 @@ Template.IbuyitProductImport.helpers({
 Template.IbuyitProductImport.events({
   "submit form#form-import-csv": function (event, instance) {
     event.preventDefault();
-    checkCsv(event, instance);
+
+    let file = event.target.csvfiles.files[0];
+    let provider = event.target.provider.value;
+
+    if (validateInput(file, provider)) {
+      checkCsv(file, provider, instance);
+    }
   }
 });
 
-function checkCsv(event, instance) {
+let validateInput = (file, provider) => {
+  if (!$('#form-import-csv #file-warning').hasClass('hide')) {
+    $('#form-import-csv #file-warning').addClass('hide');
+  }
+
+  if (!$('#form-import-csv #provider-warning').hasClass('hide')) {
+    $('#form-import-csv #provider-warning').addClass('hide');
+  }
+
+  if (!file) {
+    $('#form-import-csv #file-warning').removeClass('hide');
+    $('#form-import-csv #file-warning').text('Please choose a csv or txt file.');
+    return false;
+  }
+
+  if (provider == undefined || provider === "0") {
+    $('#form-import-csv #provider-warning').removeClass('hide');
+    $('#form-import-csv #provider-warning').text('Please choose a provider for your file.');
+    return false;
+  }
+
+  return true;
+}
+
+function checkCsv(file, provider, instance) {
   $('#form-import-csv button').attr('disabled', 'disabled');
-  let file = event.target.csvfiles.files[0];
+
   let res = {};
 
   if (!file) {
     res.success = false;
     res.errMsg = "No product csv file is found.";
-  } else if (window.FileReader) {
+  } else
+  if (window.FileReader) {
     let reader = new FileReader();
     reader.onload = () => {
       res.result = IbuyitParse.parse(reader.result);
@@ -45,7 +74,8 @@ function checkCsv(event, instance) {
 
     reader.readAsText(file);
     return;
-  } else {
+  }
+  else {
     res.success = false;
     res.errMsg = "The Browser you are using does not support file reader, please use another browser.";
   }
