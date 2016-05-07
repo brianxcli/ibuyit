@@ -1,3 +1,8 @@
+.list-body {
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
 .warning {
   padding: 10px;
   margin-bottom: 6px;
@@ -9,4 +14,34 @@
   padding: 6px 12px;
   border: 1px solid #cccccc;
   border-radius: 4px;
+}
+
+.list-title {
+  background-color: #6b7a9c;
+}
+
+.title-item {
+  height: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-left: 1px solid floralwhite;
+  color: ghostwhite;
+}
+
+.list-title .title-item:first-child {
+  border-left: none;
+}
+
+.list-products .center-item,
+.list-products .item {
+  padding:5px;
+}
+
+.list-products .center-item {
+  text-align: center;
+}
+
+.list-products:nth-child(odd) {
+  background-color: #e8e8e8;
 }

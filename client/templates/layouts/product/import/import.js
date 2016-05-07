@@ -12,9 +12,40 @@ Template.IbuyitProductImport.helpers({
   productList: () => {
     if (Meteor.isClient) {
       let instance = Template.instance();
+      if ($('#importScvBtn').hasClass('active')) {
+        $('#importScvBtn').removeClass('active');
+      }
+
       return instance.state.get('import');
     }
+  },
+  getNameClass: (provider) => {
+    // if (provider === "4") {
+      return 'col-xs-6';
+    // } else {
+    //   return 'col-xs-4';
+    // }
+  },
+  getProviderSpecificFields: (product, index) => {
+    switch (product.provider) {
+      case 1:
+          return "<input type='hidden' value='" + product.ShopPrice + "' name='ShopPrice'>" +
+              "<input type='hidden' value='" + product.Details + "' name='Details'>";
+          break;
+      case 2:
+      case 3:
+          return "<input type='hidden' value='" + product.Category + "' name='Category'>";
+          break;
+      case 4:
+          return "<input type='hidden' value='" + product.Block1Price + "' name='Block1Price'>" +
+              "<input type='hidden' value='" + product.Block2Price + "' name='Block2Price'>" +
+              "<input type='hidden' value='" + product.Block3Price + "' name='Block3Price'>" +
+              "<input type='hidden' value='" + product.Category + "' name='Category'>";
+          break;
+    }
+    return "";
   }
+
 });
 
 Template.IbuyitProductImport.events({
@@ -27,6 +58,17 @@ Template.IbuyitProductImport.events({
     if (validateInput(file, provider)) {
       checkCsv(file, provider, instance);
     }
+  },
+
+  "submit form#form-import-result": function (event, instance) {
+    event.preventDefault();
+    let productList = $('form#form-import-result .list-products');
+    let output = [];
+
+    productList.each(function() {
+      let info = $(this).find("input");
+      console.log(info);
+    });
   }
 });
 
@@ -66,20 +108,228 @@ function checkCsv(file, provider, instance) {
   if (window.FileReader) {
     let reader = new FileReader();
     reader.onload = () => {
-      res.result = IbuyitParse.parse(reader.result);
-      res.success = true;
+      let array = IbuyitParse.parse(reader.result);
+      res.result = readProducts(array, provider);
+
+      if (res.result === undefined) {
+        res.success = false;
+        // res.errMsg = "The file you upload does not match the provider.";
+        $('#form-import-csv #file-warning').removeClass('hide');
+        $('#form-import-csv #file-warning').text('The file uploaded does not match the provider.');
+      } else {
+        res.success = true;
+        res.provider = provider;
+      }
+
       instance.state.set('import', res);
       $('#form-import-csv button').removeAttr('disabled');
     }
 
     reader.readAsText(file);
+    $('#importScvBtn').toggleClass("active");
     return;
-  }
-  else {
+  } else {
     res.success = false;
     res.errMsg = "The Browser you are using does not support file reader, please use another browser.";
   }
 
   instance.state.set('import', res);
   $('#form-import-csv button').removeAttr('disabled');
+}
+
+readProducts = (array, provider) => {
+  let data = array.data;
+  let titles = data[0];
+
+  switch (provider) {
+    case "1":
+      if (checkIMTitles(titles)) {
+        return readCSVProducts(data, provider);
+      }
+      break;
+    case "2":
+      if (checkAnywareTitles(titles)) {
+        return readCSVProducts(data, provider);
+      }
+      break;
+    case "3":
+      if (checkPBTitles(titles)) {
+        return readCSVProducts(data, provider);
+      }
+      break;
+    case "4":
+      if (checkSynnexTitles(titles)) {
+        return readCSVProducts(data, provider);
+      }
+      break;
+  }
+}
+
+let readCSVProducts = (data, provider) => {
+  let len = data.length;
+  let constructor = getConstructor(provider);
+  let result = [];
+
+  let titleCount = data[0].length;
+
+  for (let i = 1; i < len; i++) {
+    let product = data[i];
+
+    if (product != undefined && product.length == titleCount) {
+      result.push(constructor(product));
+    }
+  }
+
+  return result;
+}
+
+let getConstructor = (provider) => {
+  let method;
+  switch (provider) {
+    case "1":
+      method = getIMProductInstance;
+      break;
+    case "2":
+      method = getAnywareProductInstance;
+      break;
+    case "3":
+      method = getPBProductInstance;
+      break;
+    case "4":
+      method = getSynnexProductInstance;
+      break;
+  }
+  return method;
+}
+
+let checkIMTitles = (titles) => {
+  return (titles[IMFields.Name] === "Name" &&
+  titles[IMFields.NO] === "NO." &&
+  titles[IMFields.Brand] === "Brand" &&
+  titles[IMFields.MarketPrice] === "Market price" &&
+  titles[IMFields.ShopPrice] === "Shop price" &&
+  titles[IMFields.Details] === "Details" &&
+  titles[IMFields.Stock] === "Entity");
+}
+
+let getIMProductInstance = (product) => {
+  let obj = new Object();
+  obj.Name = product[IMFields.Name].trim();
+  obj.No = product[IMFields.NO].trim();
+  obj.Brand = product[IMFields.Brand].trim();
+  obj.RetailPrice = product[IMFields.MarketPrice].trim();
+  obj.ShopPrice = product[IMFields.ShopPrice].trim();
+  obj.Details = product[IMFields.Details].trim();
+  obj.Stock = product[IMFields.Stock].trim();
+  obj.provider = 1;
+  return obj;
+}
+
+let checkAnywareTitles = (titles) => {
+  return (titles[AnywareFields.ItemNumber] === "ItemNumber" &&
+    titles[AnywareFields.ItemName] == "ItemName" &&
+    titles[AnywareFields.QuantityOnHand] == "QuantityOnHand" &&
+    titles[AnywareFields.SellingPrice] == "SellingPrice" &&
+    titles[AnywareFields.Brand] == "Brand" &&
+    titles[AnywareFields.Category] == "Category");
+}
+
+let getAnywareProductInstance = (product) => {
+  let obj = new Object();
+  obj.No = product[AnywareFields.ItemNumber].trim();
+  obj.Name = product[AnywareFields.ItemName].trim();
+  obj.Stock = product[AnywareFields.QuantityOnHand].trim();
+  obj.RetailPrice = product[AnywareFields.SellingPrice].trim();
+  obj.Brand = product[AnywareFields.Brand].trim();
+  obj.Category = product[AnywareFields.Category].trim();
+  obj.provider = 2;
+  return obj;
+}
+
+let checkPBTitles = (titles) => {
+  return (titles[PBFields.PartNumber] === "PB Part Number" &&
+    titles[PBFields.ProductName] === "Product Name" &&
+    titles[PBFields.BulkStock] === "Bulk Stock" &&
+    titles[PBFields.YourPrice] === "Your Price" &&
+    titles[PBFields.Category] === "Category" &&
+    titles[PBFields.Brand] === "Brand" );
+}
+
+let getPBProductInstance = (product) => {
+  let obj = new Object();
+  obj.No = product[PBFields.PartNumber].trim();
+  obj.Name = product[PBFields.ProductName].trim();
+  obj.Stock = product[PBFields.BulkStock].trim();
+  obj.RetailPrice = product[PBFields.YourPrice].trim();
+  obj.Category = product[PBFields.Category].trim();
+  obj.Brand = product[PBFields.Brand].trim();
+  obj.provider = 3;
+  return obj;
+}
+
+let checkSynnexTitles = (titles) => {
+  return (titles[SynnexFields.PartNo] === "PartNo" &&
+  titles[SynnexFields.Vendor] === "Vendor" &&
+  titles[SynnexFields.RRP] === "RRP" &&
+  titles[SynnexFields.Block_1Price] === "Block1_Price" &&
+  titles[SynnexFields.Block_2Price] === "Block2_Price" &&
+  titles[SynnexFields.Block_3Price] === "Block3_Price" &&
+  titles[SynnexFields.ProductGroup] === "ProductGroup" &&
+  titles[SynnexFields.Stock] === "Stock" &&
+  titles[SynnexFields.Description] === "Description");
+}
+
+let getSynnexProductInstance = (product) => {
+  let obj = new Object();
+  obj.No = product[SynnexFields.PartNo].trim();
+  obj.Brand = product[SynnexFields.Vendor].trim();
+  obj.RetailPrice = product[SynnexFields.RRP].trim();
+  obj.Block1Price = product[SynnexFields.Block_1Price].trim();
+  obj.Block2Price = product[SynnexFields.Block_2Price].trim();
+  obj.Block3Price = product[SynnexFields.Block_3Price].trim();
+  obj.Category = product[SynnexFields.ProductGroup].trim();
+  obj.Stock = product[SynnexFields.Stock].trim();
+  obj.Name = product[SynnexFields.Description].trim();
+  obj.provider = 4;
+  return obj
+}
+
+let IMFields = {
+  Name: 0,
+  NO: 1,
+  Brand: 2,
+  MarketPrice: 3,
+  ShopPrice: 4,
+  Details: 11,
+  Stock: 20
+}
+
+let AnywareFields = {
+  ItemNumber: 0,
+  ItemName: 1,
+  QuantityOnHand: 2,
+  SellingPrice: 3,
+  Brand: 4,
+  Category: 5
+}
+
+let PBFields = {
+  PartNumber: 0,
+  ProductName: 2,
+  BulkStock: 3,
+  YourPrice: 4,
+  Category: 5,
+  Brand: 6
+}
+
+let SynnexFields = {
+  Vendor: 1,
+  PartNo: 2,
+  RRP: 3,
+  Block_1Price: 6,
+  Block_2Price: 7,
+  Block_3Price: 8,
+  ProductGroup: 9,
+  Stock: 10,
+  Description: 11
 }

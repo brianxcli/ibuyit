@@ -4,7 +4,7 @@
             <form id="form-import-csv" class="panel-body" role="form">
                 <div class="form-group">
                     <div id="file-warning" class="warning text-warning bg-danger hide"></div>
-                    <label>Files</label>
+                    <label>File</label>
                     <input name="csvfiles" class="form-control" type="file">
                 </div>
                 <div class="form-group">
@@ -27,16 +27,40 @@
             <form id="form-import-result" class="panel-body" role="form">
                 <div class="form-group">
                     <label>You are going to import the following products:</label>
-                    {{#let ret=productList}}
-                      {{#if ret.success}}
-                        {{#each product in ret.result.data}}
-                            <div><span>{{product}}</span></div>
-                        {{/each}}
-                      {{else}}
-                          <p><span>{{ret.errMsg}}</span></p>
-                      {{/if}}
-                    {{/let}}
-                    <button type="submit" class="btn btn-info">Confirm</button>
+                    <div class="list-body">
+                      {{#let ret=productList}}
+                        {{#if ret.success}}
+                            <div class="list-title">
+                                <div class="container-fluid">
+                                    <div class="col-xs-2 title-item"><strong>Brand</strong></div>
+                                    <div class="{{getNameClass ret.provider}} title-item"><strong>Name</strong></div>
+                                    <div class="col-xs-3 title-item"><strong>Retail Price</strong>&nbsp;(No GST)</div>
+                                    <div class="col-xs-1 title-item"><strong>Stock</strong></div>
+                                </div>
+                            </div>
+                          {{#each product in ret.result}}
+                            {{#if product.Name}}
+                                <div class="container-fluid list-products">
+                                    <div class="col-xs-2 center-item">{{product.Brand}}</div>
+                                    <div class="{{getNameClass ret.provider}} item">{{product.Name}}</div>
+                                    <div class="col-xs-3 center-item">{{product.RetailPrice}}</div>
+                                    <div class="col-xs-1 center-item">{{product.Stock}}</div>
+                                    <input type="hidden" name="No" value="{{product.No}}">
+                                    <input type="hidden" name="Name" value="{{product.Name}}">
+                                    <input type="hidden" name="RetailPrice" value="{{product.RetailPrice}}">
+                                    <input type="hidden" name="Brand" value="{{product.Brand}}">
+                                    <input type="hidden" name="Stock" value="{{product.Stock}}">
+                                  {{{getProviderSpecificFields product @index}}}
+                                </div>
+                            {{/if}}
+
+                          {{/each}}
+                        {{else}}
+                            <p><span>{{ret.errMsg}}</span></p>
+                        {{/if}}
+                      {{/let}}
+                    </div>
+                    <button type="submit" class="btn btn-info" id="submitToServer">Confirm</button>
                 </div>
             </form>
         </div>
