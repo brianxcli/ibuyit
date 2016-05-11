@@ -1,6 +1,8 @@
 /**
  * Created by xiaochen on 4/30/16.
  */
+Random = Package.random.Random;
+
 Template.IbuyitProductImport.onCreated(function () {
   this.state = new ReactiveDict();
   this.state.setDefault({
@@ -30,22 +32,24 @@ Template.IbuyitProductImport.helpers({
     switch (product.provider) {
       case 1:
           return "<input type='hidden' value='" + product.ShopPrice + "' name='ShopPrice'>" +
-              "<input type='hidden' value='" + product.Details + "' name='Details'>";
+              "<input type='hidden' value='" + product.Details + "' name='Details'>" +
+              "<input type='hidden' value='" + product.provider + "' name='Provider'>";
           break;
       case 2:
       case 3:
-          return "<input type='hidden' value='" + product.Category + "' name='Category'>";
+          return "<input type='hidden' value='" + product.Category + "' name='Category'>" +
+              "<input type='hidden' value='" + product.provider + "' name='Provider'>";
           break;
       case 4:
           return "<input type='hidden' value='" + product.Block1Price + "' name='Block1Price'>" +
               "<input type='hidden' value='" + product.Block2Price + "' name='Block2Price'>" +
               "<input type='hidden' value='" + product.Block3Price + "' name='Block3Price'>" +
-              "<input type='hidden' value='" + product.Category + "' name='Category'>";
+              "<input type='hidden' value='" + product.Category + "' name='Category'>" +
+              "<input type='hidden' value='" + product.provider + "' name='Provider'>";
           break;
     }
     return "";
   }
-
 });
 
 Template.IbuyitProductImport.events({
@@ -55,24 +59,34 @@ Template.IbuyitProductImport.events({
     let file = event.target.csvfiles.files[0];
     let provider = event.target.provider.value;
 
-    if (validateInput(file, provider)) {
-      checkCsv(file, provider, instance);
+    if (isFilevalid(file, provider)) {
+      readCsvFile(file, provider, instance);
     }
   },
 
   "submit form#form-import-result": function (event, instance) {
     event.preventDefault();
     let productList = $('form#form-import-result .list-products');
-    let output = [];
 
     productList.each(function() {
       let info = $(this).find("input");
-      console.log(info);
+      let product = createProductFromInputs(info);
+      let query = objectToQuery(product);
+
+      Meteor.call("products/findByNumber", query.number, function(error, result) {
+        if (error) {
+          console.log(error);
+        } else {
+          let isCommon = query.type == "common";
+          let method = (result) ? "products/update" : "products/insert";
+          Meteor.call(method, query, isCommon);
+        }
+      });
     });
   }
 });
 
-let validateInput = (file, provider) => {
+let isFilevalid = (file, provider) => {
   if (!$('#form-import-csv #file-warning').hasClass('hide')) {
     $('#form-import-csv #file-warning').addClass('hide');
   }
@@ -94,9 +108,9 @@ let validateInput = (file, provider) => {
   }
 
   return true;
-}
+};
 
-function checkCsv(file, provider, instance) {
+function readCsvFile(file, provider, instance) {
   $('#form-import-csv button').attr('disabled', 'disabled');
 
   let res = {};
@@ -135,7 +149,7 @@ function checkCsv(file, provider, instance) {
 
   instance.state.set('import', res);
   $('#form-import-csv button').removeAttr('disabled');
-}
+};
 
 readProducts = (array, provider) => {
   let data = array.data;
@@ -163,7 +177,7 @@ readProducts = (array, provider) => {
       }
       break;
   }
-}
+};
 
 let readCSVProducts = (data, provider) => {
   let len = data.length;
@@ -181,7 +195,7 @@ let readCSVProducts = (data, provider) => {
   }
 
   return result;
-}
+};
 
 let getConstructor = (provider) => {
   let method;
@@ -200,7 +214,7 @@ let getConstructor = (provider) => {
       break;
   }
   return method;
-}
+};
 
 let checkIMTitles = (titles) => {
   return (titles[IMFields.Name] === "Name" &&
@@ -210,7 +224,7 @@ let checkIMTitles = (titles) => {
   titles[IMFields.ShopPrice] === "Shop price" &&
   titles[IMFields.Details] === "Details" &&
   titles[IMFields.Stock] === "Entity");
-}
+};
 
 let getIMProductInstance = (product) => {
   let obj = new Object();
@@ -223,7 +237,7 @@ let getIMProductInstance = (product) => {
   obj.Stock = product[IMFields.Stock].trim();
   obj.provider = 1;
   return obj;
-}
+};
 
 let checkAnywareTitles = (titles) => {
   return (titles[AnywareFields.ItemNumber] === "ItemNumber" &&
@@ -232,7 +246,7 @@ let checkAnywareTitles = (titles) => {
     titles[AnywareFields.SellingPrice] == "SellingPrice" &&
     titles[AnywareFields.Brand] == "Brand" &&
     titles[AnywareFields.Category] == "Category");
-}
+};
 
 let getAnywareProductInstance = (product) => {
   let obj = new Object();
@@ -244,7 +258,7 @@ let getAnywareProductInstance = (product) => {
   obj.Category = product[AnywareFields.Category].trim();
   obj.provider = 2;
   return obj;
-}
+};
 
 let checkPBTitles = (titles) => {
   return (titles[PBFields.PartNumber] === "PB Part Number" &&
@@ -253,7 +267,7 @@ let checkPBTitles = (titles) => {
     titles[PBFields.YourPrice] === "Your Price" &&
     titles[PBFields.Category] === "Category" &&
     titles[PBFields.Brand] === "Brand" );
-}
+};
 
 let getPBProductInstance = (product) => {
   let obj = new Object();
@@ -265,7 +279,7 @@ let getPBProductInstance = (product) => {
   obj.Brand = product[PBFields.Brand].trim();
   obj.provider = 3;
   return obj;
-}
+};
 
 let checkSynnexTitles = (titles) => {
   return (titles[SynnexFields.PartNo] === "PartNo" &&
@@ -277,7 +291,7 @@ let checkSynnexTitles = (titles) => {
   titles[SynnexFields.ProductGroup] === "ProductGroup" &&
   titles[SynnexFields.Stock] === "Stock" &&
   titles[SynnexFields.Description] === "Description");
-}
+};
 
 let getSynnexProductInstance = (product) => {
   let obj = new Object();
@@ -292,7 +306,7 @@ let getSynnexProductInstance = (product) => {
   obj.Name = product[SynnexFields.Description].trim();
   obj.provider = 4;
   return obj
-}
+};
 
 let IMFields = {
   Name: 0,
@@ -302,7 +316,7 @@ let IMFields = {
   ShopPrice: 4,
   Details: 11,
   Stock: 20
-}
+};
 
 let AnywareFields = {
   ItemNumber: 0,
@@ -311,7 +325,7 @@ let AnywareFields = {
   SellingPrice: 3,
   Brand: 4,
   Category: 5
-}
+};
 
 let PBFields = {
   PartNumber: 0,
@@ -320,7 +334,7 @@ let PBFields = {
   YourPrice: 4,
   Category: 5,
   Brand: 6
-}
+};
 
 let SynnexFields = {
   Vendor: 1,
@@ -332,4 +346,47 @@ let SynnexFields = {
   ProductGroup: 9,
   Stock: 10,
   Description: 11
-}
+};
+
+let createProductFromInputs = (inputs) => {
+  let ret = new Object();
+
+  inputs.each(function () {
+    let name = $(this).attr('name');
+    let value = $(this).val();
+    ret[name] = value;
+  });
+
+  return ret;
+};
+
+let objectToQuery = (product) => {
+  let ret = new Object();
+
+  ret.number = product.No;
+  ret.title = product.Name;
+  ret.brand = product.Brand;
+  ret.category = product.Category;
+  ret.retailPrice = Number(product.RetailPrice);
+
+  if (product.Provider == 4) {
+    ret.type = "synnex";
+
+    ret.block1Price = Number(product.Block1Price);
+    ret.block2Price = Number(product.Block2Price);
+    ret.block3Price = Number(product.Block3Price);
+
+    if (product.Stock === "B") {
+      ret.stock = 0;
+      ret.isBackorder = true;
+    } else {
+      ret.stock = Number(product.Stock);
+      ret.isBackorder = false;
+    }
+  } else {
+    ret.type = "common";
+    ret.stock = Number(product.Stock);
+  }
+
+  return ret;
+};

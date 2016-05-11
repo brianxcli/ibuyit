@@ -314,7 +314,8 @@ ReactionCore.Schemas.Product = new SimpleSchema({
   // Denormalized field: object with range string, min and max
   price: {
     label: "Price",
-    type: ReactionCore.Schemas.PriceRange
+    type: ReactionCore.Schemas.PriceRange,
+    optional: true
   },
   // Denormalized field: Indicates when at least one of variants
   // `inventoryQuantity` are lower then their `lowInventoryWarningThreshold`.
