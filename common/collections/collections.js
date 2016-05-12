@@ -132,6 +132,10 @@ if (Meteor.isServer) {
             }
           });
       }
+    },
+    "products/searchProducts": function(query) {
+      check(query, Object);
+      return ReactionCore.Collections.Products.find().fetch();
     }
   });
 }

@@ -113,23 +113,23 @@ Meteor.methods({
     }
 
     // localeCurrency is an array of allowed currencies
-    _.each(localeCurrency, function (currency) {
-      let exchangeRate;
-      if (shop.currencies[currency]) {
-        result.currency = shop.currencies[currency];
-        // only fetch rates if locale and shop currency are not equal
-        // if shop.curency = locale currency the rate is 1
-        if (shop.currency !== currency) {
-          exchangeRate = Meteor.call("shop/getCurrencyRates", currency);
-
-          if (typeof exchangeRate === "number") {
-            result.currency.exchangeRate = exchangeRate;
-          } else {
-            ReactionCore.Log.warn("Failed to get currency exchange rates.");
-          }
-        }
-      }
-    });
+    // _.each(localeCurrency, function (currency) {
+    //   let exchangeRate;
+    //   if (shop.currencies[currency]) {
+    //     result.currency = shop.currencies[currency];
+    //     // only fetch rates if locale and shop currency are not equal
+    //     // if shop.curency = locale currency the rate is 1
+    //     if (shop.currency !== currency) {
+    //       exchangeRate = Meteor.call("shop/getCurrencyRates", currency);
+    //
+    //       if (typeof exchangeRate === "number") {
+    //         result.currency.exchangeRate = exchangeRate;
+    //       } else {
+    //         ReactionCore.Log.warn("Failed to get currency exchange rates.");
+    //       }
+    //     }
+    //   }
+    // });
     // should contain rates, locale, currency
     return result;
   },

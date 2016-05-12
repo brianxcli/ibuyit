@@ -1,3 +1,30 @@
 <template name="IbuyitProduct">
-    <p>Product list page</p>
+    <div class="container-fluid-sm">
+        <div class="panel panel-default">
+            <form id="form-import-result" class="panel-body" role="form">
+                <div class="form-group">
+                    <div class="list-body">
+                        <div class="list-title">
+                            <div class="container-fluid">
+                                <div class="col-xs-2 title-item"><strong>Brand</strong></div>
+                                <div class="col-xs-6 title-item"><strong>Name</strong></div>
+                                <div class="col-xs-3 title-item"><strong>Retail Price</strong>&nbsp;(No GST)</div>
+                                <div class="col-xs-1 title-item"><strong>Stock</strong></div>
+                            </div>
+                        </div>
+                        {{#let products=productList}}
+                          {{#each product in products}}
+                            <div class="container-fluid list-products">
+                                <div class="col-xs-2 center-item">{{product.brand}}</div>
+                                <div class="col-xs-6 item">{{product.title}}</div>
+                                <div class="col-xs-3 center-item">{{product.retailPrice}}</div>
+                                <div class="col-xs-1 center-item">{{product.stock}}</div>
+                            </div>
+                          {{/each}}
+                        {{/let}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
