@@ -1,7 +1,45 @@
 <template name="IbuyitProduct">
     <div class="container-fluid-sm">
         <div class="panel panel-default">
-            <form id="form-import-result" class="panel-body" role="form">
+            <form id="form-search" class="panel-body" role="form">
+                <div class="search-title"><strong>Search Products</strong></div>
+                <div class="container-fluid">
+                    <div class="col-xs-12 col-sm-3">
+                      <div class="form-group">
+                        <label>Provider</label>
+                        <select id="providerSelect" class="form-select">
+                          <option value="0">please choose a provider</option>
+                          {{#each option in providerList}}
+                            <option value="{{option}}">{{option}}</option>
+                          {{/each}}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                      <div class="form-group">
+                        <label>Category</label>
+                        <select id="categorySelect" class="form-select">
+                          <option value="0">please choose a category</option>
+                          {{#each category in categoryList}}
+                            <option value="{{category}}">{{category}}</option>
+                          {{/each}}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                      <div class="form-group">
+                        <div class="form-group"  style="float: left;">
+                            <label>&nbsp;</label>
+                            <button type="button" id="product-search" class="btn btn-info product-search-btn">Search</button>
+                        </div>
+                        <div class="form-group" style="float: left;">
+                            <label>&nbsp;</label>
+                            <button type="button" id="product-search-reset" class="btn btn-default product-search-btn">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="list-body">
                         <div class="list-title">

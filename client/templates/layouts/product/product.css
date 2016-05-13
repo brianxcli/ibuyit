@@ -1,0 +1,14 @@
+.search-title {
+  width: 100%;
+  color: #0D3349;
+  font-size: 15px;
+  padding: 15px 0 15px 12px;
+}
+
+.form-group label {
+  width: 100%;
+}
+
+.product-search-btn {
+  width: 80px;
+}

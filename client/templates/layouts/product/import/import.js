@@ -384,8 +384,13 @@ let objectToQuery = (product) => {
       ret.isBackorder = false;
     }
   } else {
-    ret.type = "common";
     ret.stock = Number(product.Stock);
+    
+    if (product.Provider == 2) {
+      ret.type = "anyware";
+    } else if (product.Provider == 3) {
+      ret.type = "pb";
+    }
   }
 
   return ret;

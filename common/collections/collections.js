@@ -44,7 +44,10 @@ ReactionCore.Schemas.SynnexProduct = new SimpleSchema([
 ]);
 
 ReactionCore.Collections.Products.attachSchema(ReactionCore.Schemas.IbuyitProduct,
-  { selector: { type: "common" } });
+  { selector: { type: "anyware" } });
+
+ReactionCore.Collections.Products.attachSchema(ReactionCore.Schemas.IbuyitProduct,
+  { selector: { type: "pb" } });
 
 ReactionCore.Collections.Products.attachSchema(ReactionCore.Schemas.SynnexProduct,
   { selector: { type: "synnex" } });
@@ -133,9 +136,30 @@ if (Meteor.isServer) {
           });
       }
     },
-    "products/searchProducts": function(query) {
-      check(query, Object);
-      return ReactionCore.Collections.Products.find().fetch();
+    "products/searchProducts": function(params) {
+      check(params, Object);
+      let query = {};
+      if (params.provider != "") {
+        query.type = params.provider;
+      }
+      if (params.category != "") {
+        query.category = params.provider;
+      }
+
+      return ReactionCore.Collections.Products.find(query, {sort: {updatedAt: -1}}).fetch();
+    },
+    "products/providers": function() {
+      // Meteor collection doesn't support distinct() method,
+      // The following is the solution from
+      // https://coderwall.com/p/o9np9q/get-unique-values-from-a-collection-in-meteor
+      let allTypes = ReactionCore.Collections.Products.find({}, {fields: {type: 1}}).fetch();
+      let distinctArray = _.uniq(allTypes, false, function(d) {return d.type});
+      return _.pluck(distinctArray, 'type');
+    },
+    "products/categories": function() {
+      let allCategories = ReactionCore.Collections.Products.find({}, {fields: {category: 1}}).fetch();
+      let distinctArray = _.uniq(allCategories, false, function(d) {return d.category});
+      return _.pluck(distinctArray, 'category');
     }
   });
 }
