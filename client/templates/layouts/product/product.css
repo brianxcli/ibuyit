@@ -12,3 +12,13 @@
 .product-search-btn {
   width: 80px;
 }
+
+.list-products a {
+  text-decoration: underline;
+}
+
+@media (max-width: 991px) {
+  .product-search-btn {
+    width: 66px;
+  }
+}

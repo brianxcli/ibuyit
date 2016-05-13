@@ -45,6 +45,17 @@ Meteor.startup(function () {
         }
       });
 
+      ReactionRouter.route("/product/item", {
+        name: "product/item",
+        action: () => {
+          BlazeLayout.render("coreLayout", {
+            template: "IbuyitProductDetail",
+            layoutHeader: "layoutHeader",
+            layoutFooter: "layoutFooter"
+          });
+        }
+      });
+
       ReactionRouter.route("/product/import", {
         name: "product/import",
         action: () => {

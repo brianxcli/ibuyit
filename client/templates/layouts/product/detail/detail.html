@@ -1,0 +1,59 @@
+<template name="IbuyitProductDetail">
+  <div class="container-fluid-sm">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{#let product=getProduct}}
+          <div class="col-xs-12 col-sm-4">
+            <div class="image-wrapper">
+              <img class="product-image" src="/resources/default_product_image.png" />
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            <div class="detail-content-wrapper">
+              <div class="detail-title"><strong>Product Detail</strong></div>
+              <div class="container-fluid detail-item">
+                <div class="col-xs-12 col-sm-4"><strong>Description</strong></div>
+                <div class="col-xs-12 col-sm-8">{{product.title}}</div>
+              </div>
+              <div class="container-fluid detail-item">
+                <div class="col-xs-12 col-sm-4"><strong>Brand</strong></div>
+                <div class="col-xs-12 col-sm-8">{{product.brand}}</div>
+              </div>
+              <div class="container-fluid detail-item">
+                <div class="col-xs-12 col-sm-4"><strong>Stock</strong></div>
+                <div class="col-xs-12 col-sm-8">{{getStock product.isBackorder product.stock}}</div>
+              </div>
+              <div class="container-fluid detail-item">
+                <div class="col-xs-12 col-sm-4"><strong>Product No.</strong></div>
+                <div class="col-xs-12 col-sm-8">{{product.number}}</div>
+              </div>
+              <div class="container-fluid detail-item">
+                <div class="col-xs-12 col-sm-4"><strong>Retail Price</strong></div>
+                <div class="col-xs-12 col-sm-8">NZ$ {{getTaxPrice product.retailPrice}}(GST included)</div>
+              </div>
+
+              {{#if isSynnex product.type}}
+                <div class="container-fluid detail-item">
+                    <div class="col-xs-12 col-sm-4"><strong>Block1 Price(1-4)</strong></div>
+                    <div class="col-xs-12 col-sm-8">NZ$ {{getTaxPrice product.block1Price}}(GST included)</div>
+                </div>
+                <div class="container-fluid detail-item">
+                    <div class="col-xs-12 col-sm-4"><strong>Block1 Price(5-9)</strong></div>
+                    <div class="col-xs-12 col-sm-8">NZ$ {{getTaxPrice product.block2Price}}(GST included)</div>
+                </div>
+                <div class="container-fluid detail-item">
+                    <div class="col-xs-12 col-sm-4"><strong>Block1 Price(10+)</strong></div>
+                    <div class="col-xs-12 col-sm-8">NZ$ {{getTaxPrice product.block3Price}}(GST included)</div>
+                </div>
+              {{/if}}
+              <div class="detailActionBtnWrapper">
+                <button type="button" id="detailAddToCartBtn" class="btn btn-info detailbtn">Add to cart</button>
+                <button type="button" id="detailBackBtn" class="btn btn-default detailbtn">Back</button>
+              </div>
+            </div>
+          </div>
+        {{/let}}
+      </div>
+    </div>
+</div>
+</template>

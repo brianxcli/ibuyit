@@ -8,9 +8,9 @@
                       <div class="form-group">
                         <label>Provider</label>
                         <select id="providerSelect" class="form-select">
-                          <option value="0">please choose a provider</option>
+                          <option value="0" selected={{getSupplierSelected "0"}}>-- Supplier --</option>
                           {{#each option in providerList}}
-                            <option value="{{option}}">{{option}}</option>
+                            <option value="{{option}}" {{getSupplierSelected option}}>{{option}}</option>
                           {{/each}}
                         </select>
                       </div>
@@ -19,12 +19,23 @@
                       <div class="form-group">
                         <label>Category</label>
                         <select id="categorySelect" class="form-select">
-                          <option value="0">please choose a category</option>
+                          <option value="0" selected={{getCategorySelected "0"}}>-- Category --</option>
                           {{#each category in categoryList}}
-                            <option value="{{category}}">{{category}}</option>
+                            <option value="{{category}}" {{getCategorySelected category}}>{{category}}</option>
                           {{/each}}
                         </select>
                       </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select id="brandSelect" class="form-select">
+                              <option value="0" selected={{getBrandSelected "0"}}>-- Brand --</option>
+                              {{#each brand in brandList}}
+                                  <option value="{{brand}}" {{getBrandSelected brand}}>{{brand}}</option>
+                              {{/each}}
+                            </select>
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-3">
                       <div class="form-group">
@@ -46,17 +57,17 @@
                             <div class="container-fluid">
                                 <div class="col-xs-2 title-item"><strong>Brand</strong></div>
                                 <div class="col-xs-6 title-item"><strong>Name</strong></div>
-                                <div class="col-xs-3 title-item"><strong>Retail Price</strong>&nbsp;(No GST)</div>
+                                <div class="col-xs-3 title-item"><strong>Retail Price</strong>&nbsp;(GST included)</div>
                                 <div class="col-xs-1 title-item"><strong>Stock</strong></div>
                             </div>
                         </div>
                         {{#let products=productList}}
                           {{#each product in products}}
                             <div class="container-fluid list-products">
-                                <div class="col-xs-2 center-item">{{product.brand}}</div>
-                                <div class="col-xs-6 item">{{product.title}}</div>
-                                <div class="col-xs-3 center-item">{{product.retailPrice}}</div>
-                                <div class="col-xs-1 center-item">{{product.stock}}</div>
+                                <div class="col-xs-2 center-item"><a href={{getBrandLink product.brand}}>{{product.brand}}</a></div>
+                                <div class="col-xs-6 item"><a href={{getDetailLink product._id}}>{{product.title}}</a></div>
+                                <div class="col-xs-3 center-item">{{product.retailPrice}}&nbsp;({{getGstPrice product.retailPrice}})</div>
+                                <div class="col-xs-1 center-item">{{getStock product.isBackorder product.stock}}</div>
                             </div>
                           {{/each}}
                         {{/let}}

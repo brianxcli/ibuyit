@@ -1,0 +1,37 @@
+.detail-wrapper {
+  padding: 15px 30px;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  width: 100%;
+}
+
+.image-wrapper .product-image {
+  width: 100%;
+  height: auto;
+}
+
+.detail-content-wrapper {
+  margin: 30px;
+}
+
+.detail-title {
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.detailActionBtnWrapper {
+  padding: 10px 0 20px 10px;
+}
+
+.detailActionBtnWrapper .detailbtn {
+  width: 100px;
+  margin-right: 16px;
+  float: left;
+}

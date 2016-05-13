@@ -77,9 +77,8 @@ Template.IbuyitProductImport.events({
         if (error) {
           console.log(error);
         } else {
-          let isCommon = query.type == "common";
           let method = (result) ? "products/update" : "products/insert";
-          Meteor.call(method, query, isCommon);
+          Meteor.call(method, query, query.type);
         }
       });
     });
@@ -371,7 +370,6 @@ let objectToQuery = (product) => {
 
   if (product.Provider == 4) {
     ret.type = "synnex";
-
     ret.block1Price = Number(product.Block1Price);
     ret.block2Price = Number(product.Block2Price);
     ret.block3Price = Number(product.Block3Price);
@@ -385,7 +383,7 @@ let objectToQuery = (product) => {
     }
   } else {
     ret.stock = Number(product.Stock);
-    
+
     if (product.Provider == 2) {
       ret.type = "anyware";
     } else if (product.Provider == 3) {
