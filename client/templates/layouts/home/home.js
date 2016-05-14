@@ -5,15 +5,18 @@ AdsLooper = {};
 AdsLooper.data = [{
   name: 'asus_mb',
   path: '/resources/ads/ad_asus_pro_gaming_series_motherboard.png',
-  color: 'rgba(22,22,22,1)'
+  color: 'rgba(22,22,22,1)',
+  border: '#666666'
 },{
   name: 'intel_i7',
   path: '/resources/ads/ad_intel_6th_gen_core_i7.png',
-  color: '#0665a5'
+  color: '#0665a5',
+  border: 'rgba(248,248,255,1)'
 },{
   name: 'inwin',
   path: '/resources/ads/ad_inwin_hframe_2.0.png',
-  color: 'rgba(18,18,18,0.9)'
+  color: 'rgba(18,18,18,0.9)',
+  border: '#666666'
 }];
 
 AdsLooper.default = 0;
@@ -83,14 +86,16 @@ Template.IbuyitHome.helpers({
 
 Template.IbuyitHome.events({
   'click .ads-arrow.ads-arrow-left'() {
-      let adver = AdsLooper.previous();
-      $('.home-adver').attr('src', adver.path);
-      $('.category-nav-wrapper').attr('style', 'background-color:' + adver.color);
+    let adver = AdsLooper.previous();
+    $('.home-adver').attr('src', adver.path);
+    $('.category-nav-wrapper').attr('style', 'background-color:' + adver.color);
+    $('.category-nav-list').attr('style', 'border-color:' + adver.border);
   },
 
   'click .ads-arrow.ads-arrow-right'() {
-      let adver = AdsLooper.next();
-      $('.home-adver').attr('src', adver.path);
-      $('.category-nav-wrapper').attr('style', 'background-color:' + adver.color);
+    let adver = AdsLooper.next();
+    $('.home-adver').attr('src', adver.path);
+    $('.category-nav-wrapper').attr('style', 'background-color:' + adver.color);
+    $('.category-nav-list').attr('style', 'border-color:' + adver.border);
   }
 });

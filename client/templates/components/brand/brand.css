@@ -2,8 +2,13 @@
   height: 39px;
 }
 
+.logo {
+  width: 100px;
+  height: 100%;
+}
+
 .logo-img {
-  height: 29px;
-  padding-top: 6px;
+  width: 100%;
+  padding-top: 9px;
   box-sizing: border-box;
 }
