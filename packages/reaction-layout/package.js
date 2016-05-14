@@ -60,6 +60,9 @@ Package.onUse(function (api) {
 
   api.addFiles("client/templates/layout/footer/footer.html", "client");
 
+  api.addFiles("client/templates/layout/ibuyit-footer/footer.html", "client");
+  api.addFiles("client/templates/layout/ibuyit-footer/footer.js", "client");
+
   api.addFiles("client/templates/layout/alerts/inlineAlerts.js", "client");
   api.addFiles("client/templates/layout/alerts/reactionAlerts.js", "client");
   api.addFiles("client/templates/layout/alerts/alerts.html", "client");
@@ -69,6 +72,22 @@ Package.onUse(function (api) {
   api.addFiles("client/templates/layout/notFound/notFound.html", "client");
 
   api.addFiles("client/templates/layout/notice/unauthorized.html", "client");
+
+  api.addFiles("client/templates/layout/ibuyit-layout.html", "client");
+  api.addFiles("client/templates/layout/ibuyit-layout.js", "client");
+
+  api.addFiles("client/templates/layout/ibuyit-about/about.html", "client");
+  api.addFiles("client/templates/layout/ibuyit-about/about.css", "client");
+
+  api.addFiles("client/templates/layout/ibuyit-admin/admin.html", "client");
+  api.addFiles("client/templates/layout/ibuyit-admin/admin.js", "client");
+
+  api.addFiles("client/templates/layout/ibuyit-home/home.html", "client");
+  api.addFiles("client/templates/layout/ibuyit-home/home.js", "client");
+  api.addFiles("client/templates/layout/ibuyit-home/home.css", "client");
+
+  api.addFiles("client/templates/layout/ibuyit-header/header.html", "client");
+  api.addFiles("client/templates/layout/ibuyit-header/header.js", "client");
 
   // Theme Assets
   api.addAssets("private/themes/notFound.css", "server");

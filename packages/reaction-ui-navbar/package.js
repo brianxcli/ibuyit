@@ -33,12 +33,20 @@ Package.onUse(function (api) {
   api.addFiles("client/components/brand/brand.js", "client");
   api.addFiles("client/components/brand/brand.less", "client");
 
+  api.addFiles("client/components/ibuyit-brand/ibuyit-brand.html", "client");
+  api.addFiles("client/components/ibuyit-brand/ibuyit-brand.js", "client");
+  api.addFiles("client/components/ibuyit-brand/ibuyit-brand.css", "client");
+
   api.addFiles("client/components/i18n/i18n.html", "client");
   api.addFiles("client/components/i18n/i18n.js", "client");
 
   api.addFiles("client/components/navbar/navbar.html", "client");
   api.addFiles("client/components/navbar/navbar.js", "client");
   api.addFiles("client/components/navbar/navbar.less", "client");
+
+  api.addFiles("client/components/ibuyit-navbar/ibuyit-navbar.html", "client");
+  api.addFiles("client/components/ibuyit-navbar/ibuyit-navbar.js", "client");
+  api.addFiles("client/components/ibuyit-navbar/ibuyit-navbar.css", "client");
 
   // Add Assets for theme editor
   api.addAssets("private/themes/navbar.css", "server");

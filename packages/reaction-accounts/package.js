@@ -112,6 +112,9 @@ Package.onUse(function (api) {
   api.addFiles("client/templates/dropdown/dropdown.html", "client");
   api.addFiles("client/templates/dropdown/dropdown.js", "client");
 
+  api.addFiles("client/templates/ibuyit-dropdown/dropdown.html", "client");
+  api.addFiles("client/templates/ibuyit-dropdown/dropdown.js", "client");
+
   api.imply("accounts-base");
   api.imply("accounts-password");
   api.export("ReactionCore");

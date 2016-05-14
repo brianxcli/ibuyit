@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Reaction Commerce <hello@reactioncommerce.com>
 
-ENV NODE_VERSION "0.10.41"
+ENV NODE_VERSION "4.4.3"
 
 # Install PhantomJS
 ENV INSTALL_PHANTOMJS "true"
@@ -15,7 +15,7 @@ ENV MONGO_VERSION "2.6.11"
 # Meteor environment variables
 ENV PORT "80"
 ENV ROOT_URL "http://localhost"
-ENV MONGO_URL "mongodb://127.0.0.1:27017/meteor"
+ENV MONGO_URL "mongodb://192.168.10.16:27017/meteor"
 ENV PACKAGE_DIRS "packages"
 
 # build script directories
@@ -33,13 +33,14 @@ COPY . $APP_SOURCE_DIR
 
 # install base dependencies, build app, cleanup
 RUN bash $BUILD_SCRIPTS_DIR/install-deps.sh && \
-		bash $BUILD_SCRIPTS_DIR/install-mongodb.sh && \
+		#bash $BUILD_SCRIPTS_DIR/install-mongodb.sh && \
 		bash $BUILD_SCRIPTS_DIR/install-node.sh && \
 		bash $BUILD_SCRIPTS_DIR/install-phantom.sh && \
 		bash $BUILD_SCRIPTS_DIR/install-meteor.sh && \
  		cd $APP_SOURCE_DIR && \
 		bash $BUILD_SCRIPTS_DIR/build-meteor.sh && \
 		bash $BUILD_SCRIPTS_DIR/post-build-cleanup.sh
+
 
 # switch to production meteor bundle
 WORKDIR $APP_BUNDLE_DIR/bundle

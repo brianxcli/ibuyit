@@ -45,5 +45,8 @@ Package.onUse(function (api) {
   api.addFiles("client/components/tagNav/tagNav.js", "client");
   api.addFiles("client/components/tagNav/tagNav.less", "client");
 
+  api.addFiles("client/components/ibuyit-tagNav/tagNav.html", "client");
+  api.addFiles("client/components/ibuyit-tagNav/tagNav.js", "client");
+
   api.addFiles("client/styles/base.less", "client");
 });

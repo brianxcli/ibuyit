@@ -79,18 +79,17 @@
 }
 
 .popup-menu {
-  width: 120px;
-  min-width: 120px;
-  height: 117px;
-  display: none;
-  padding: 0;
-  margin-left: 10px;
-  margin-top: 3px;
+  width: 126px;
+  min-width: 126px !important;
+  height: 123px;
+  padding: 3px !important;
+  margin-left: 10px !important;
+  margin-top: 3px !important;
   color: ghostwhite;
-  border: none;
-  background: #222f3e;
+  border: none !important;
+  background: #222f3e !important;
   z-index: 2000;
-  border-radius: 3px;
+  border-radius: 3px !important;
 }
 
 @media (max-width: 767px) {

@@ -107,6 +107,18 @@ Package.onUse(function (api) {
   api.addFiles("client/templates/products/productSettings/productSettings.html", "client");
   api.addFiles("client/templates/products/productSettings/productSettings.js", "client");
 
+  api.addFiles("client/templates/ibuyit-product/product.html", "client");
+  api.addFiles("client/templates/ibuyit-product/product.js", "client");
+  api.addFiles("client/templates/ibuyit-product/product.css", "client");
+
+  api.addFiles("client/templates/ibuyit-product/detail/detail.html", "client");
+  api.addFiles("client/templates/ibuyit-product/detail/detail.js", "client");
+  api.addFiles("client/templates/ibuyit-product/detail/detail.css", "client");
+
+  api.addFiles("client/templates/ibuyit-product/import/import.html", "client");
+  api.addFiles("client/templates/ibuyit-product/import/import.js", "client");
+  api.addFiles("client/templates/ibuyit-product/import/import.css", "client");
+
   // Exports
   api.export("currentProduct", ["client", "server"]);
   api.export("ReactionProduct");
