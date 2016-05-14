@@ -1,6 +1,26 @@
 
 <template name="IbuyitNavBar">
   <div class="rui navbar ibuyit-navbar">
+    <div class="showmenu">
+      <button class="rui button btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="contents">
+          <span class="icon"><i data-reactroot="" class="fa fa-bars"></i></span>
+        </div>
+      </button>
+        <div class="popup-menu dropdown-menu">
+            <ul class="dropdown-nav-wrapper">
+                <li class="{{getFocused 'index'}}">
+                    <a id="home">HOME</a>
+                </li>
+                <li class="{{getFocused 'product'}}">
+                    <a id="product">PRODUCT</a>
+                </li>
+                <li class="{{getFocused 'about'}}">
+                    <a id="about">ABOUT US</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     {{> coreNavigationBrand}}
     <ul class="nav-wrapper">
         <li class="{{getFocused 'about'}}">
@@ -13,7 +33,6 @@
             <a id="home">HOME</a>
         </li>
     </ul>
-
     <div class="accounts">{{> accounts tpl="loginDropdown"}}</div>
     <div class="cart">{{> cartIcon}}</div>
     <div class="cart-alert">{{> cartPanel}}</div>

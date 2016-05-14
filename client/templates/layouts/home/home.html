@@ -1,7 +1,7 @@
 <template name="IbuyitHome">
     <div class="home-block">
         <div class="block-wrapper">
-            <div class="block-title">CATEGORIES</div>
+            <div class="block-title"><strong>CATEGORIES</strong></div>
             <div class="category-wrapper">
                 <div class="ads-wrapper">
                     <img class="home-adver" src="/resources/ads/ad_asus_pro_gaming_series_motherboard.png"/>
@@ -9,34 +9,39 @@
                     <a class="ads-arrow ads-arrow-right"></a>
                 </div>
                 <div class="category-nav-wrapper" style="background-color: rgba(5,5,5,1);">
-                    <div class="category-nav-list">
-                        <div><a>CPU</a></div>
-                        <div><a>Motherboard</a></div>
-                        <div><a>Graphics Card</a></div>
-                        <div><a>Memory</a></div>
-                        <div><a>Storage</a></div>
-                        <div><a>Monitor</a></div>
-                        <div><a>Power Supply</a></div>
-                        <div><a>Case</a></div>
-                        <div><a>Fan & Cooling</a></div>
-                        <div><a>Accessory</a></div>
-                    </div>
+                    <ul class="category-nav-list">
+                        <li><a>CPU</a></li>
+                        <li><a>Motherboard</a></li>
+                        <li><a>Graphics Card</a></li>
+                        <li><a>Memory</a></li>
+                        <li><a>Storage</a></li>
+                        <li><a>Monitor</a></li>
+                        <li><a>Power Supply</a></li>
+                        <li><a>Case</a></li>
+                        <li><a>Fan & Cooling</a></li>
+                        <li><a>Accessory</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <div class="block-wrapper">
-            <div class="block-title">BRANDS</div>
-            <div class="block-divider"></div>
-            <div class="brands-wrapper">
-                <div class="brands-grid container-fluid">
-                    {{#each brand in brands}}
-                        <div class="brand-item-grid col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                            <img class="brand-item" src="{{brand.logo}}"/>
-                        </div>
-                    {{/each}}
+          <div class="block-title"><strong>BRANDS</strong></div>
+          <div class="block-divider"></div>
+          <div class="brands-wrapper">
+            <div class="brands-grid container-fluid">
+              {{#each brand in brands}}
+                <div class="brand-item-grid col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                  <img class="brand-item" src="{{brand.logo}}" onclick="goToLink('{{brand.link}}')" />
                 </div>
+              {{/each}}
             </div>
+          </div>
         </div>
+        <script>
+          function goToLink(link) {
+            ReactionRouter.go(link);
+          }
+        </script>
     </div>
 </template>

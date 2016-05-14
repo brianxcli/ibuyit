@@ -80,7 +80,6 @@ Template.IbuyitProduct.helpers({
   getSupplierSelected: function(supplier) {
     ReactionRouter.watchPathChange();
     let current = ReactionRouter.current().queryParams.provider;
-    console.log("supplier: " + supplier + "|current query: " + current);
     let ret = "";
     if (current) {
       if (current === supplier) {
@@ -94,7 +93,6 @@ Template.IbuyitProduct.helpers({
   getCategorySelected: function(category) {
     ReactionRouter.watchPathChange();
     let current = ReactionRouter.current().queryParams.category;
-    console.log("category: " + category + "|current query: " + current);
     let ret = "";
     if (current) {
       if (current === category) {
@@ -108,7 +106,6 @@ Template.IbuyitProduct.helpers({
   getBrandSelected: function(brand) {
     ReactionRouter.watchPathChange();
     let current = ReactionRouter.current().queryParams.brand;
-    console.log("brand: " + brand + "|current query: " + current);
     let ret = "";
     if (current) {
       if (current === brand) {
