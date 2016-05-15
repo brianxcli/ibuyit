@@ -16,7 +16,7 @@
                 {{>cartDrawer}}
               </nav>
 
-              <main role="main" id="main">
+              <div role="main" id="main">
                   <div class="shop-page">
                       <span id="layout-alerts">{{> inlineAlerts}}</span>
                     {{#if hasPermission 'guest'}}
@@ -25,11 +25,11 @@
                         <!-- end template region -->
                     {{/if}}
                   </div>
-              </main>
+              </div>
           </div>
-          <footer class="reaction-navigation-footer footer-default ibuyit-footer">
+          <div class="reaction-navigation-footer footer-default ibuyit-footer">
             {{> Template.dynamic template=layoutFooter}}
-          </footer>
+          </div>
       </div>
   {{/if}}
 </template>

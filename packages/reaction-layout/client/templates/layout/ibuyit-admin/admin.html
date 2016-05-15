@@ -14,7 +14,7 @@
               {{> cartDrawer}}
             </nav>
 
-            <main role="main" id="main">
+            <div role="main" id="main">
                 <!-- begin dashboardHeader -->
               {{> Template.dynamic template=dashboardHeader}}
                 <!-- end dashboardHeader -->
@@ -22,14 +22,14 @@
                 <!-- begin template region -->
               {{> Template.dynamic template=template}}
                 <!-- end template region -->
-            </main>
+            </div>
         </div>
 
-        <footer class="reaction-navigation-footer footer-default ibuyit-footer">
+        <div class="reaction-navigation-footer footer-default ibuyit-footer">
             <!-- begin layoutFooter -->
           {{> Template.dynamic template=layoutFooter}}
             <!-- end layoutFooter -->
-        </footer>
+        </div>
     </div>
 
     <div class="admin-controls {{adminControlsClassname}}" style="z-index: 2000;">
