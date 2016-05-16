@@ -103,13 +103,15 @@ if (Meteor.isServer) {
       check(product, Object);
       check(type, String);
 
+      let result;
+
       if (type != "synnex") {
         let update = {
           stock: product.stock,
           retailPrice: product.retailPrice,
         };
 
-        ReactionCore.Collections.Products.update({
+        result = ReactionCore.Collections.Products.update({
             number: product.number
           }, {
             $set: update
@@ -129,7 +131,7 @@ if (Meteor.isServer) {
           block3Price: product.block3Price
         };
 
-        ReactionCore.Collections.Products.update({
+        result = ReactionCore.Collections.Products.update({
             number: product.number
           }, {
             $set: update
@@ -139,6 +141,8 @@ if (Meteor.isServer) {
             }
           });
       }
+
+      return result;
     },
     "products/searchProducts": function(params) {
       check(params, Object);

@@ -26,7 +26,7 @@
         <div class="panel panel-default">
             <form id="form-import-result" class="panel-body" role="form">
                 <div class="form-group">
-                    <label>You are going to import the following products:</label>
+                    <label>You are going to import <span style="color: cornflowerblue">{{affectedCount}}</span> products.</label>
                     <div class="list-body">
                       {{#let ret=productList}}
                         {{#if ret.success}}
@@ -61,6 +61,12 @@
                       {{/let}}
                     </div>
                     <button type="submit" class="btn btn-info" id="submitToServer">Confirm</button>
+                    <div class="submitResult">
+                      <label>Submit Result:</label>
+                      <div><span>Products affected: <span style="color: cornflowerblue">{{affectedCount}}</span></span></div>
+                      <div><span>Products inserted: <span style="color: cornflowerblue">{{insertedItems}}</span></span></div>
+                      <div><span>Products updated: <span style="color: cornflowerblue">{{updatedItems}}</span></span></div>
+                    </div>
                 </div>
             </form>
         </div>

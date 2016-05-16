@@ -3,11 +3,20 @@
  */
 Random = Package.random.Random;
 
-Template.IbuyitProductImport.onCreated(function () {
+Template.IbuyitProductImport.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.setDefault({
-    import: {}
+    import: {},
+    inserted: 0,
+    updated: 0,
+    affected: 0
   });
+});
+
+Template.IbuyitProductImport.onRendered(function() {
+  $('.list-body').hide();
+  $('#submitToServer').hide();
+  $('.submitResult').hide();
 });
 
 Template.IbuyitProductImport.helpers({
@@ -49,6 +58,15 @@ Template.IbuyitProductImport.helpers({
           break;
     }
     return "";
+  },
+  insertedItems: function() {
+    return Template.instance().state.get('inserted');
+  },
+  updatedItems: function() {
+    return Template.instance().state.get('updated');
+  },
+  affectedCount: function() {
+    return Template.instance().state.get('affected');
   }
 });
 
@@ -59,6 +77,10 @@ Template.IbuyitProductImport.events({
     let file = event.target.csvfiles.files[0];
     let provider = event.target.provider.value;
 
+    $('.list-body').show();
+    $('#submitToServer').show();
+    $('.submitResult').hide();
+
     if (isFilevalid(file, provider)) {
       readCsvFile(file, provider, instance);
     }
@@ -68,20 +90,40 @@ Template.IbuyitProductImport.events({
     event.preventDefault();
     let productList = $('form#form-import-result .list-products');
 
+    let insertCount = 0;
+    let updateCount = 0;
+
     productList.each(function() {
       let info = $(this).find("input");
       let product = createProductFromInputs(info);
       let query = objectToQuery(product);
+      let instance = Template.instance();
 
       Meteor.call("products/findByNumber", query.number, function(error, result) {
         if (error) {
           console.log(error);
         } else {
           let method = (result) ? "products/update" : "products/insert";
-          Meteor.call(method, query, query.type);
+          Meteor.call(method, query, query.type, function(error, affected) {
+            if (error) {
+              console.log(error);
+            } else {
+              if (result) {
+                updateCount += affected;
+                instance.state.set('updated', updateCount);
+              } else {
+                insertCount ++;
+                instance.state.set('inserted', insertCount);
+              }
+            }
+          });
         }
       });
     });
+
+    $('.list-body').hide();
+    $('#submitToServer').hide();
+    $('.submitResult').show();
   }
 });
 
@@ -135,6 +177,7 @@ function readCsvFile(file, provider, instance) {
       }
 
       instance.state.set('import', res);
+      instance.state.set('affected', (res.result) ? res.result.length : 0);
       $('#form-import-csv button').removeAttr('disabled');
     }
 

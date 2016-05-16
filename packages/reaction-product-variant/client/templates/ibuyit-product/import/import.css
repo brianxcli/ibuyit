@@ -50,6 +50,11 @@
   background-color: #e8e8e8;
 }
 
+.submitResult label {
+  margin: 15px 0 5px 0;
+  font-weight: bolder;
+}
+
 @media (min-width: 920px) {
   .list-title .container-fluid {
     height: 37px;
